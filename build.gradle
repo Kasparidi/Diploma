@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'io.freefair.lombok' version '4.1.6'
 }
 
 group 'ru.netology'
@@ -15,12 +16,12 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
     testImplementation 'mysql:mysql-connector-java:8.0.22'
-    testImplementation 'com.github.javafaker:javafaker:1.0.1'
+    testImplementation 'com.github.javafaker:javafaker:1.0.2'
+    testImplementation 'commons-dbutils:commons-dbutils:1.7'
+
 //    testImplementation 'io.rest-assured:rest-assured:4.3.0'
-//    testImplementation 'com.google.code.gson:gson:2.8.6'
 }
 
 test {
