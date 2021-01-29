@@ -11,9 +11,6 @@ import static com.codeborne.selenide.Selenide.$;
 @Data
 public class Page {
 
-    private SelenideElement successOperation = $(".notification_status_ok");
-    private SelenideElement errorOperation =  $(".notification_status_error");
-
     public void callPayPage () {
         $(byText("Купить")).click();
     }

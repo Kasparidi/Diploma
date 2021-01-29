@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import ru.netology.data.Card;
 import ru.netology.data.SqlHelper;
 import ru.netology.web.Page;
+import ru.netology.web.PayCreditPage;
 import ru.netology.web.PayPage;
 
 import java.sql.SQLException;
@@ -17,8 +18,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.netology.data.DataGenerator.*;
 
-public class PayTest {
-
+public class PayCreditTest {
     @BeforeAll
     static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
@@ -36,26 +36,26 @@ public class PayTest {
     }
 
     @Test
-    void happyPathPay() {
+    void happyPathCredit() {
         Card card = new Card(approveNumber(), anyMonth(), validYear(), name(), codeCVC());
         Page page = new Page();
-        page.callPayPage();
+        page.callCreditPage();
         page.data(card);
         page.buttonContinue();
-        PayPage payPage = new PayPage();
-        payPage.successOperation();
-        assertEquals("APPROVED", SqlHelper.getStatusPayApproved());
+        PayCreditPage payCredit = new PayCreditPage();
+        payCredit.successOperation();
+        assertEquals("APPROVED", SqlHelper.getStatusCreditApproved());
     }
 
     @Test
-    void declinedPay() {
+    void declinedCreditPay() {
         Card card = new Card(declineNumber(), anyMonth(), validYear(), name(), codeCVC());
         Page page = new Page();
-        page.callPayPage();
+        page.callCreditPage();
         page.data(card);
         page.buttonContinue();
         PayPage payPage = new PayPage();
         payPage.declinedOperation();
-        assertEquals("DECLINED", SqlHelper.getStatusPayDeclined());
+        assertEquals("DECLINED", SqlHelper.getStatusCreditPayDeclined());
     }
 }
