@@ -34,7 +34,7 @@ public class PayCreditTest {
         open("http://localhost:8080");
         SqlHelper.set();
     }
-
+//1
     @Test
     void happyPathCredit() {
         Card card = new Card(approveNumber(), anyMonth(), validYear(), name(), codeCVC());
@@ -46,9 +46,9 @@ public class PayCreditTest {
         payCredit.successOperation();
         assertEquals("APPROVED", SqlHelper.getStatusCreditApproved());
     }
-
+//2
     @Test
-    void declinedCreditPay() {
+    void declinedCredit() {
         Card card = new Card(declineNumber(), anyMonth(), validYear(), name(), codeCVC());
         Page page = new Page();
         page.callCreditPage();
@@ -57,5 +57,86 @@ public class PayCreditTest {
         PayPage payPage = new PayPage();
         payPage.declinedOperation();
         assertEquals("DECLINED", SqlHelper.getStatusCreditPayDeclined());
+    }
+//3
+    @Test
+    void invalidCreditCardNumber() {
+        Card card = new Card(invalidNumber(), anyMonth(), validYear(), name(), codeCVC());
+        Page page = new Page();
+        page.callCreditPage();
+        page.data(card);
+        page.buttonContinue();
+        page.invalidCardFormat();
+    }
+
+//4.1
+    @Test
+    void validBoundaryMonthCreditFrom() {
+        Card card = new Card(approveNumber(), currentMonth(), currentYear(), name(), codeCVC());
+        Page page = new Page();
+        page.callCreditPage();
+        page.data(card);
+        page.buttonContinue();
+        PayCreditPage payCredit = new PayCreditPage();
+        payCredit.successOperation();
+        assertEquals("APPROVED", SqlHelper.getStatusCreditApproved());
+    }
+    //4.2
+    @Test
+    void validBoundaryMonthCreditTo() {
+        Card card = new Card(approveNumber(), pastMonth(), yearPlusFive(), name(), codeCVC());
+        Page page = new Page();
+        page.callCreditPage();
+        page.data(card);
+        page.buttonContinue();
+        PayCreditPage payCredit = new PayCreditPage();
+        payCredit.successOperation();
+        assertEquals("APPROVED", SqlHelper.getStatusCreditApproved());
+    }
+//5.1
+    //5.2 //todo maybe invalid?
+    @Test
+    void validBoundaryMonthCreditMore() {
+        Card card = new Card(approveNumber(), currentMonth(), yearPlusFive(), name(), codeCVC());
+        Page page = new Page();
+        page.callCreditPage();
+        page.data(card);
+        page.buttonContinue();
+        PayCreditPage payCredit = new PayCreditPage();
+        payCredit.successOperation();
+        assertEquals("APPROVED", SqlHelper.getStatusCreditApproved());
+    }
+
+    //5.3 //todo failed, need bug-report
+    @Test
+    void invalidBoundaryMonthCreditLess() {
+        Card card = new Card(approveNumber(), "00", yearPlusFive(), name(), codeCVC());
+        Page page = new Page();
+        page.callCreditPage();
+        page.data(card);
+        page.buttonContinue();
+        page.invalidBoundary();
+    }
+
+    //5.4
+    @Test
+    void invalidBoundaryMonthPayMore() {
+        Card card = new Card(approveNumber(), "13", yearPlusFive(), name(), codeCVC());
+        Page page = new Page();
+        page.callCreditPage();
+        page.data(card);
+        page.buttonContinue();
+        page.invalidBoundary();
+    }
+
+    //5.5
+    @Test
+    void invalidBoundaryYearPayMore() {
+        Card card = new Card(approveNumber(), anyMonth(), invalidYear(), name(), codeCVC());
+        Page page = new Page();
+        page.callCreditPage();
+        page.data(card);
+        page.buttonContinue();
+        page.invalidBoundary();
     }
 }

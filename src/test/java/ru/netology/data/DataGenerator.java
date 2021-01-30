@@ -18,6 +18,10 @@ public class DataGenerator {
         return "4444444444444442";
     }
 
+    public static String invalidNumber() {
+        return "444444444444";
+    }
+
     public static String currentMonth(){
         LocalDate currentDate = LocalDate.now();
         int month = currentDate.getMonthValue();
@@ -38,7 +42,13 @@ public class DataGenerator {
 
     public static String currentYear() {
         LocalDate currentDate = LocalDate.now();
-        int year = currentDate.getYear();
+        int year = currentDate.getYear()-2000;
+        return String.format("%02d", year);
+    }
+
+    public static String yearPlusFive() {
+        LocalDate currentDate = LocalDate.now();
+        int year = currentDate.getYear()-2000+5;
         return String.format("%02d", year);
     }
 
@@ -51,6 +61,14 @@ public class DataGenerator {
     public static String validYear() {
         Random random = new Random();
         int y = random.nextInt(5) + 1;
+        LocalDate futureYear = LocalDate.now().plusYears(y);
+        int year = futureYear.getYear() - 2000;
+        return String.format("%02d", year);
+    }
+
+    public static String invalidYear() {
+        Random random = new Random();
+        int y = random.nextInt(25) + 6;
         LocalDate futureYear = LocalDate.now().plusYears(y);
         int year = futureYear.getYear() - 2000;
         return String.format("%02d", year);

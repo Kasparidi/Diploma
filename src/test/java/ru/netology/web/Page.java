@@ -1,6 +1,6 @@
 package ru.netology.web;
 
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.Condition;
 import lombok.Data;
 import org.openqa.selenium.By;
 import ru.netology.data.Card;
@@ -29,5 +29,15 @@ public class Page {
         $("[placeholder='22']").setValue(card.getYear());
         $(By.xpath("//div//fieldset/div[3]//span[1]/span/span/span[2]/input")).setValue(card.getName());
         $("[placeholder='999']").setValue(card.getCodeCVC());
+    }
+
+    public boolean invalidCardFormat() {
+        $(".input__sub").shouldHave(Condition.exactText("Неверный формат"));
+        return true;
+    }
+
+    public boolean invalidBoundary() {
+        $(".input__sub").shouldHave(Condition.exactText("Неверно указан срок действия карты"));
+        return true;
     }
 }
