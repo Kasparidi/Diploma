@@ -1,6 +1,8 @@
 package ru.netology.data;
 
 import com.github.javafaker.Faker;
+import com.github.javafaker.service.FakeValuesService;
+import com.github.javafaker.service.RandomService;
 
 import java.time.LocalDate;
 import java.util.Locale;
@@ -75,14 +77,18 @@ public class DataGenerator {
     }
 
     public static String codeCVC() {
-        Random random = new Random();
-        int x = random.nextInt(10);
-        int y = random.nextInt(10);
-        int z = random.nextInt(10);
-        return Integer.toString(x) + Integer.toString(y) + Integer.toString(z);
+        FakeValuesService fake = new FakeValuesService(
+                new Locale("en"), new RandomService());
+        return fake.regexify("[0-10]{3}");
     }
 
     public static String name() {
         return faker.name().firstName().toUpperCase() + " " + faker.name().lastName().toUpperCase();
+    }
+
+    public static String longName() {
+        FakeValuesService fake = new FakeValuesService(
+                new Locale("en"), new RandomService());
+        return fake.regexify("[a-z]{65}");
     }
 }

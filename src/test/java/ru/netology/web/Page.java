@@ -31,13 +31,16 @@ public class Page {
         $("[placeholder='999']").setValue(card.getCodeCVC());
     }
 
-    public boolean invalidCardFormat() {
+    public void invalidCardFormat() {
         $(".input__sub").shouldHave(Condition.exactText("Неверный формат"));
-        return true;
     }
 
-    public boolean invalidBoundary() {
+    public void invalidBoundary() {
         $(".input__sub").shouldHave(Condition.exactText("Неверно указан срок действия карты"));
-        return true;
     }
+
+    public void invalidEmptyField() {
+        $(".input__sub").shouldHave(Condition.exactText("Поле обязательно для заполнения"));
+    }
+
 }
