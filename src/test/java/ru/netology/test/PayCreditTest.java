@@ -93,7 +93,7 @@ public class PayCreditTest {
         payCredit.successOperation();
         assertEquals("APPROVED", SqlHelper.getStatusCreditApproved());
     }
-//5.1
+//5.1 //TODO How to test? If the last month is last year?
     @Test
     void invalidBoundaryMonthYearCreditLess() {
         Card card = new Card(approveNumber(), pastMonth(), currentYear(), name(), codeCVC());
@@ -103,7 +103,7 @@ public class PayCreditTest {
         page.buttonContinue();
         page.invalidBoundary();
     }
-    //5.2 //todo maybe invalid?
+    //5.2 //todo Maybe invalid? Card is valid for more than 5 years.
     @Test
     void validBoundaryMonthCreditMore() {
         Card card = new Card(approveNumber(), currentMonth(), yearPlusFive(), name(), codeCVC());

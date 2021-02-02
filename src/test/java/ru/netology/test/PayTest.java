@@ -2,13 +2,11 @@ package ru.netology.test;
 
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
-import lombok.val;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.Card;
-import ru.netology.data.DataGenerator;
 import ru.netology.data.SqlHelper;
 import ru.netology.web.Page;
 import ru.netology.web.PayPage;
@@ -94,8 +92,7 @@ public class PayTest {
         payPage.successOperation();
         assertEquals("APPROVED", SqlHelper.getStatusPayApproved());
     }
-    //TODO как протестировать, если прошлый месяц это декабрь прошлого года?
-    //5.1
+    //5.1 //TODO How to test? If the last month is last year?
     @Test
     void invalidBoundaryMonthYearPayLess() {
         Card card = new Card(approveNumber(), pastMonth(), currentYear(), name(), codeCVC());
@@ -112,7 +109,7 @@ public class PayTest {
         payPage.invalidBoundary();
     }
 
-    //5.2 //todo maybe invalid?
+    //5.2 //TODO Maybe invalid? Card is valid for more than 5 years.
     @Test
     void validBoundaryMonthPayMore() {
         Card card = new Card(approveNumber(), currentMonth(), yearPlusFive(), name(), codeCVC());
@@ -124,8 +121,7 @@ public class PayTest {
         payPage.successOperation();
         assertEquals("APPROVED", SqlHelper.getStatusPayApproved());
     }
-
-    //5.3 //todo failed, need bug-report
+    //5.3
     @Test
     void invalidBoundaryMonthPayLess() {
         Card card = new Card(approveNumber(), "00", yearPlusFive(), name(), codeCVC());
@@ -135,7 +131,6 @@ public class PayTest {
         page.buttonContinue();
         page.invalidBoundary();
     }
-
     //5.4
     @Test
     void invalidBoundaryMonthPayMore() {
@@ -157,7 +152,7 @@ public class PayTest {
         page.buttonContinue();
         page.invalidBoundary();
     }
-    //6.1 failed //todo need bug-report
+    //6.1 failed
     @Test
     void invalidNameRusPay() {
         Card card = new Card(approveNumber(), anyMonth(), validYear(), "КАСПАРИДИ НАТАЛЬЯ", codeCVC());
@@ -197,7 +192,7 @@ public class PayTest {
         page.buttonContinue();
         page.invalidCardFormat();
     }
-    //7.1 failed //todo need bug-report
+    //7.1 failed
     @Test
     void invalidCVCPay() {
         Card card = new Card(approveNumber(), anyMonth(), validYear(), name(), "000");
@@ -217,7 +212,7 @@ public class PayTest {
         page.buttonContinue();
         page.invalidCardFormat();
     }
-    //8.1 failed //todo bug-report
+    //8.1 failed
     @Test
     void invalidEmptyNumberPay() {
         Card card = new Card("", anyMonth(), validYear(), name(), codeCVC());
@@ -257,7 +252,7 @@ public class PayTest {
         page.buttonContinue();
         page.invalidEmptyField();
     }
-    //8.5 //todo bug-report
+    //8.5
     @Test
     void invalidEmptyCVCPay() {
         Card card = new Card(approveNumber(), anyMonth(), validYear(), name(), "");
