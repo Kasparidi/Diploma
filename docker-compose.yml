@@ -5,7 +5,7 @@ services:
     ports:
     - '9999:9999'
 
-  mysql_service:
+  mysql:
     image: library/mysql:8.0.22
     ports:
       - '3306:3306'
@@ -17,13 +17,14 @@ services:
       - MYSQL_USER=app
       - MYSQL_PASSWORD=pass
 
-  postgres_service:
+  postgres:
     image: library/postgres:12-alpine
+    restart: always
     ports:
       - '5432:5432'
     volumes:
-      - ./data:/var/lib/posgresql
+      - ./postgres-data:/var/lib/postgresql/data
     environment:
+      - POSTGES_PASSWORD=password
+      - POSTGRES_USER=admin
       - POSTGRES_DB=app
-      - POSTGRES_USER=app
-      - POSTGRES_PASSWORD=pass

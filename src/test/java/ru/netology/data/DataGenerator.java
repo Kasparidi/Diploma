@@ -91,4 +91,5 @@ public class DataGenerator {
                 new Locale("en"), new RandomService());
         return fake.regexify("[a-z]{65}");
     }
+
 }

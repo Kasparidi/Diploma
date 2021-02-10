@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.Card;
+import ru.netology.data.DataGenerator;
 import ru.netology.data.SqlHelper;
 import ru.netology.web.Page;
 import ru.netology.web.PayCreditPage;
@@ -93,27 +94,30 @@ public class PayCreditTest {
         payCredit.successOperation();
         assertEquals("APPROVED", SqlHelper.getStatusCreditApproved());
     }
-//5.1 //TODO How to test? If the last month is last year?
+//5.1
     @Test
     void invalidBoundaryMonthYearCreditLess() {
-        Card card = new Card(approveNumber(), pastMonth(), currentYear(), name(), codeCVC());
+        Card card = new Card(approveNumber(), pastMonth(), "", name(), codeCVC());
+        if (pastMonth() == "12") {
+            card.setYear(DataGenerator.pastYear());
+        } else {
+            card.setYear(DataGenerator.currentYear());
+        }
         Page page = new Page();
         page.callCreditPage();
         page.data(card);
         page.buttonContinue();
         page.invalidBoundary();
     }
-    //5.2 //todo Maybe invalid? Card is valid for more than 5 years.
+    //5.2 failed
     @Test
-    void validBoundaryMonthCreditMore() {
+    void invalidBoundaryMonthCreditMore() {
         Card card = new Card(approveNumber(), currentMonth(), yearPlusFive(), name(), codeCVC());
         Page page = new Page();
         page.callCreditPage();
         page.data(card);
         page.buttonContinue();
-        PayCreditPage payCredit = new PayCreditPage();
-        payCredit.successOperation();
-        assertEquals("APPROVED", SqlHelper.getStatusCreditApproved());
+        page.invalidBoundary();
     }
     //5.3 failed
     @Test

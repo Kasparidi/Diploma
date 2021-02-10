@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.Card;
+import ru.netology.data.DataGenerator;
 import ru.netology.data.SqlHelper;
 import ru.netology.web.Page;
 import ru.netology.web.PayPage;
@@ -92,15 +93,15 @@ public class PayTest {
         payPage.successOperation();
         assertEquals("APPROVED", SqlHelper.getStatusPayApproved());
     }
-    //5.1 //TODO How to test? If the last month is last year?
+    //5.1
     @Test
     void invalidBoundaryMonthYearPayLess() {
-        Card card = new Card(approveNumber(), pastMonth(), currentYear(), name(), codeCVC());
-//        if (card.setMonth(DataGenerator.pastMonth()) == "12") {
-//            card.setYear(DataGenerator.pastYear());
-//        } else {
-//            card.setYear(DataGenerator.currentYear());
-//        }
+        Card card = new Card(approveNumber(), pastMonth(), "", name(), codeCVC());
+        if (pastMonth() == "12") {
+            card.setYear(DataGenerator.pastYear());
+        } else {
+            card.setYear(DataGenerator.currentYear());
+        }
         Page page = new Page();
         page.callPayPage();
         page.data(card);
@@ -109,17 +110,16 @@ public class PayTest {
         payPage.invalidBoundary();
     }
 
-    //5.2 //TODO Maybe invalid? Card is valid for more than 5 years.
+    //5.2 failed
     @Test
-    void validBoundaryMonthPayMore() {
+    void invalidBoundaryMonthPayMore() {
         Card card = new Card(approveNumber(), currentMonth(), yearPlusFive(), name(), codeCVC());
         Page page = new Page();
         page.callPayPage();
         page.data(card);
         page.buttonContinue();
         PayPage payPage = new PayPage();
-        payPage.successOperation();
-        assertEquals("APPROVED", SqlHelper.getStatusPayApproved());
+        payPage.invalidBoundary();
     }
     //5.3
     @Test
@@ -133,7 +133,7 @@ public class PayTest {
     }
     //5.4
     @Test
-    void invalidBoundaryMonthPayMore() {
+    void invalidBoundaryMonthPay() {
         Card card = new Card(approveNumber(), "13", yearPlusFive(), name(), codeCVC());
         Page page = new Page();
         page.callPayPage();
