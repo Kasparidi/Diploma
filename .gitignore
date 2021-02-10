@@ -3,6 +3,7 @@ HELP.md
 build/
 node_modules
 data
+postgres-data
 
 ### STS ###
 .apt_generated

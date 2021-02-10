@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+  node-app:
+    build: ./gate-simulator
+    container_name: node
+    ports:
+      - '9999:9999'
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: always
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: admin
+      POSTGRES_DB: app

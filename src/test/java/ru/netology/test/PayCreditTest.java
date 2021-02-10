@@ -33,7 +33,7 @@ public class PayCreditTest {
     @BeforeEach
     void setUp() throws SQLException {
         open("http://localhost:8080");
-        SqlHelper.set();
+        SqlHelper.clean();
     }
 //1
     @Test
@@ -45,7 +45,7 @@ public class PayCreditTest {
         page.buttonContinue();
         PayCreditPage payCredit = new PayCreditPage();
         payCredit.successOperation();
-        assertEquals("APPROVED", SqlHelper.getStatusCreditApproved());
+        assertEquals("APPROVED", SqlHelper.getStatusCredit());
     }
 //2
     @Test
@@ -57,7 +57,7 @@ public class PayCreditTest {
         page.buttonContinue();
         PayPage payPage = new PayPage();
         payPage.declinedOperation();
-        assertEquals("DECLINED", SqlHelper.getStatusCreditPayDeclined());
+        assertEquals("DECLINED", SqlHelper.getStatusCredit());
     }
 //3
     @Test
@@ -80,7 +80,7 @@ public class PayCreditTest {
         page.buttonContinue();
         PayCreditPage payCredit = new PayCreditPage();
         payCredit.successOperation();
-        assertEquals("APPROVED", SqlHelper.getStatusCreditApproved());
+        assertEquals("APPROVED", SqlHelper.getStatusCredit());
     }
     //4.2
     @Test
@@ -92,7 +92,7 @@ public class PayCreditTest {
         page.buttonContinue();
         PayCreditPage payCredit = new PayCreditPage();
         payCredit.successOperation();
-        assertEquals("APPROVED", SqlHelper.getStatusCreditApproved());
+        assertEquals("APPROVED", SqlHelper.getStatusCredit());
     }
 //5.1
     @Test

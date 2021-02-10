@@ -33,7 +33,7 @@ public class PayTest {
     @BeforeEach
     void setUp() throws SQLException {
         open("http://localhost:8080");
-        SqlHelper.set();
+        SqlHelper.clean();
     }
 //1
     @Test
@@ -45,9 +45,9 @@ public class PayTest {
         page.buttonContinue();
         PayPage payPage = new PayPage();
         payPage.successOperation();
-        assertEquals("APPROVED", SqlHelper.getStatusPayApproved());
+        assertEquals("APPROVED", SqlHelper.getStatusPay());
     }
-//2
+//2 failed
     @Test
     void declinedPay() {
         Card card = new Card(declineNumber(), anyMonth(), validYear(), name(), codeCVC());
@@ -57,7 +57,7 @@ public class PayTest {
         page.buttonContinue();
         PayPage payPage = new PayPage();
         payPage.declinedOperation();
-        assertEquals("DECLINED", SqlHelper.getStatusPayDeclined());
+        assertEquals("DECLINED", SqlHelper.getStatusPay());
     }
 //3
     @Test
@@ -79,7 +79,7 @@ public class PayTest {
         page.buttonContinue();
         PayPage payPage = new PayPage();
         payPage.successOperation();
-        assertEquals("APPROVED", SqlHelper.getStatusPayApproved());
+        assertEquals("APPROVED", SqlHelper.getStatusPay());
     }
     //4.2
     @Test
@@ -91,13 +91,13 @@ public class PayTest {
         page.buttonContinue();
         PayPage payPage = new PayPage();
         payPage.successOperation();
-        assertEquals("APPROVED", SqlHelper.getStatusPayApproved());
+        assertEquals("APPROVED", SqlHelper.getStatusPay());
     }
     //5.1
     @Test
     void invalidBoundaryMonthYearPayLess() {
         Card card = new Card(approveNumber(), pastMonth(), "", name(), codeCVC());
-        if (pastMonth() == "12") {
+        if (pastMonth().equals("12")) {
             card.setYear(DataGenerator.pastYear());
         } else {
             card.setYear(DataGenerator.currentYear());
