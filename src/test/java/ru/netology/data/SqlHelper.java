@@ -7,19 +7,30 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 import java.sql.*;
 
 public class SqlHelper {
-    private static final String url = "jdbc:postgresql://localhost:5432/app";
-    private static final String user = "admin";
-    private static final String password = "password";
 
-    public static void clean() throws SQLException {
+    private static String url(){
+        return System.getProperty("db.url");
+    }
+
+    private static String user() {
+        return System.getProperty("db.user");
+    }
+
+    private static String password(){
+        return System.getProperty("db.password");
+    }
+
+    public static void clean() {
         val runner = new QueryRunner();
         val delDataPaymentEntity = "DELETE FROM payment_entity";
         val delDataCreditEntity = "DELETE FROM credit_request_entity";
         try(
-                val conn = DriverManager.getConnection(url, user, password)
+                val conn = DriverManager.getConnection(url(), user(), password())
         ){
             runner.update(conn, delDataPaymentEntity);
             runner.update(conn, delDataCreditEntity);
+        } catch (SQLException e) {
+            e.getErrorCode();
         }
     }
 
@@ -27,12 +38,12 @@ public class SqlHelper {
         String result = "";
         val runner = new QueryRunner();
         try (
-                val conn = DriverManager.getConnection(url, user, password)
+                val conn = DriverManager.getConnection(url(), user(), password())
         ) {
             val count = runner.query(conn, statement, new ScalarHandler<>());
             result = count.toString();
         } catch (SQLException throwable) {
-            throwable.printStackTrace();
+            throwable.getErrorCode();
         }
         return result;
     }
