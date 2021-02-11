@@ -8,16 +8,26 @@ import java.sql.*;
 
 public class SqlHelper {
 
-    private static String url(){
+    private static String getUrl(){
         return System.getProperty("db.url");
     }
 
-    private static String user() {
+    private static String getUser() {
         return System.getProperty("db.user");
     }
 
-    private static String password(){
+    private static String getPassword(){
         return System.getProperty("db.password");
+    }
+
+    public static String getStatusPay() throws SQLException {
+        String statement = "SELECT status FROM payment_entity";
+        return getStatus(statement);
+    }
+
+    public static String getStatusCredit() throws SQLException {
+        String statement = "SELECT status FROM credit_request_entity";
+        return getStatus(statement);
     }
 
     public static void clean() {
@@ -25,7 +35,7 @@ public class SqlHelper {
         val delDataPaymentEntity = "DELETE FROM payment_entity";
         val delDataCreditEntity = "DELETE FROM credit_request_entity";
         try(
-                val conn = DriverManager.getConnection(url(), user(), password())
+                val conn = DriverManager.getConnection(getUrl(), getUser(), getPassword())
         ){
             runner.update(conn, delDataPaymentEntity);
             runner.update(conn, delDataCreditEntity);
@@ -34,27 +44,16 @@ public class SqlHelper {
         }
     }
 
-    private static String getStatus(String statement) {
-        String result = "";
+    private static String getStatus(String query) throws SQLException {
+        String data = "";
         val runner = new QueryRunner();
         try (
-                val conn = DriverManager.getConnection(url(), user(), password())
+                val conn = DriverManager.getConnection(
+                        getUrl(), getUser(), getPassword()
+                );
         ) {
-            val count = runner.query(conn, statement, new ScalarHandler<>());
-            result = count.toString();
-        } catch (SQLException throwable) {
-            throwable.getErrorCode();
+            data = runner.query(conn, query, new ScalarHandler<>());
         }
-        return result;
-    }
-
-    public static String getStatusPay() {
-        String statement = "SELECT status FROM payment_entity";
-        return getStatus(statement);
-    }
-
-    public static String getStatusCredit() {
-        String statement = "SELECT status FROM credit_request_entity";
-        return getStatus(statement);
+        return data;
     }
 }

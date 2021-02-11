@@ -79,7 +79,7 @@ public class DataGenerator {
     public static String codeCVC() {
         FakeValuesService fake = new FakeValuesService(
                 new Locale("en"), new RandomService());
-        return fake.regexify("[0-10]{3}");
+        return fake.regexify("[1-999]{3}");
     }
 
     public static String name() {

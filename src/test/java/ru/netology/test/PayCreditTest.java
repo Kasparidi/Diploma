@@ -37,7 +37,7 @@ public class PayCreditTest {
     }
 //1
     @Test
-    void happyPathCredit() {
+    void happyPathCredit() throws SQLException {
         Card card = new Card(approveNumber(), anyMonth(), validYear(), name(), codeCVC());
         Page page = new Page();
         page.callCreditPage();
@@ -49,7 +49,7 @@ public class PayCreditTest {
     }
 //2
     @Test
-    void declinedCredit() {
+    void declinedCredit() throws SQLException {
         Card card = new Card(declineNumber(), anyMonth(), validYear(), name(), codeCVC());
         Page page = new Page();
         page.callCreditPage();
@@ -72,7 +72,7 @@ public class PayCreditTest {
 
 //4.1
     @Test
-    void validBoundaryMonthCreditFrom() {
+    void validBoundaryMonthCreditFrom() throws SQLException {
         Card card = new Card(approveNumber(), currentMonth(), currentYear(), name(), codeCVC());
         Page page = new Page();
         page.callCreditPage();
@@ -84,7 +84,7 @@ public class PayCreditTest {
     }
     //4.2
     @Test
-    void validBoundaryMonthCreditTo() {
+    void validBoundaryMonthCreditTo() throws SQLException {
         Card card = new Card(approveNumber(), pastMonth(), yearPlusFive(), name(), codeCVC());
         Page page = new Page();
         page.callCreditPage();

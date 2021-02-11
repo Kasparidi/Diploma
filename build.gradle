@@ -30,7 +30,8 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
     testImplementation 'com.codeborne:selenide:5.11.0'
-    testImplementation 'mysql:mysql-connector-java:8.0.22'
+    testImplementation 'mysql:mysql-connector-java:8.0.20'
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.18'
     testImplementation 'postgresql:postgresql:9.1-901-1.jdbc4'
     testImplementation 'com.github.javafaker:javafaker:1.0.2'
     testImplementation 'commons-dbutils:commons-dbutils:1.7'
@@ -41,8 +42,8 @@ dependencies {
 test {
     useJUnitPlatform()
     systemProperty 'selenide.headless', System.getProperty('selenide.headless')
-    systemProperty 'db.url', System.getProperty('db.url', 'jdbc:mysql://localhost:3306/app')
-    systemProperty 'db.user', System.getProperty('db.user', 'app')
-    systemProperty 'db.password', System.getProperty('db.password', 'pass')
+    systemProperty 'db.url', System.getProperty("db.url")
+    systemProperty 'db.user', System.getProperty("db.user", "app")
+    systemProperty 'db.password', System.getProperty("db.password", "pass")
     systemProperty 'sut.url', System.getProperty("http://localhost:8080/")
 }

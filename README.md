@@ -16,9 +16,9 @@ API Банка.
 #### MySQL
 1. Открыть Intellij IDEA
 1. Склонировать репозиторий: ``git clone https://github.com/Kasparidi/Diploma``
-1. Запустить контейнеры: ``docker compose up``
-1. Запустить SUT: ``java -jar artifacts/aqa-shop.jar``
-1. Запустить тесты: (2 * Ctrl) ``gradlew test``
+1. Запустить контейнеры: ``docker-compose -f docker-compose-ms.yml up -d``
+1. Запустить SUT: ``java -Ddb.url=jdbc:mysql://localhost:3306/app -Dlogin=app -Dpassword=pass -jar artifacts/aqa-shop.jar``
+1. Запустить тесты: ``gradlew test``
 1. Остановить контейнеры ``docker-compose -f docker-compose-ms.yml down``
 1. Доступно в браузере http://localhost:8080/
 
@@ -26,8 +26,7 @@ API Банка.
 1. Открыть Intellij IDEA
 1. Склонировать репозиторий: ``git clone https://github.com/Kasparidi/Diploma``
 1. Запустить docker ``docker-compose -f docker-compose-ps.yml up -d``
-1. Запустить SUT: ``java -Dspring.datasource.url=jdbc:postgresql://localhost:5432/app -Dspring.datasource.username=admin
-   -Dspring.datasource.password=password -jar artifacts/aqa-shop.jar``
+1. Запустить SUT: ``java -Ddb.url=jdbc:postgresql://localhost:5432/app -Dlogin=app -Dpassword=pass -jar artifacts/aqa-shop.jar``
 1. Запустить тесты: ``gradlew test``
 1. Остановить контейнеры ``docker-compose -f docker-compose-ps.yml down``   
 1. Доступно в браузере http://localhost:8080/

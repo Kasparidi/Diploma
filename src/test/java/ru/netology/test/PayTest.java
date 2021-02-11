@@ -31,13 +31,13 @@ public class PayTest {
     }
 
     @BeforeEach
-    void setUp() throws SQLException {
+    void setUp() {
         open("http://localhost:8080");
         SqlHelper.clean();
     }
 //1
     @Test
-    void happyPathPay() {
+    void happyPathPay() throws SQLException {
         Card card = new Card(approveNumber(), anyMonth(), validYear(), name(), codeCVC());
         Page page = new Page();
         page.callPayPage();
@@ -49,7 +49,7 @@ public class PayTest {
     }
 //2 failed
     @Test
-    void declinedPay() {
+    void declinedPay() throws SQLException {
         Card card = new Card(declineNumber(), anyMonth(), validYear(), name(), codeCVC());
         Page page = new Page();
         page.callPayPage();
@@ -71,7 +71,7 @@ public class PayTest {
     }
 //4.1
     @Test
-    void validBoundaryMonthPayFrom() {
+    void validBoundaryMonthPayFrom() throws SQLException {
         Card card = new Card(approveNumber(), currentMonth(), currentYear(), name(), codeCVC());
         Page page = new Page();
         page.callPayPage();
@@ -83,7 +83,7 @@ public class PayTest {
     }
     //4.2
     @Test
-    void validBoundaryMonthPayTo() {
+    void validBoundaryMonthPayTo() throws SQLException {
         Card card = new Card(approveNumber(), pastMonth(), yearPlusFive(), name(), codeCVC());
         Page page = new Page();
         page.callPayPage();
