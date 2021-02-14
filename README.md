@@ -1,7 +1,7 @@
 # Diploma
 
 ### DOCUMENTATION
-[План автоматизации тестирования](https://github.com/Kasparidi/Diploma/blob/master/documentation/Plan.md)
+[План автоматизации тестирования](https://github.com/Kasparidi/Diploma/blob/master/documentation/Plan.md)  
 [Отчет по итогам тестирования](https://github.com/Kasparidi/Diploma/blob/master/documentation/report.md)
 ### DESCRIPTION
 Дипломный проект представляет собой автоматизацию тестирования комплексного сервиса, взаимодействующего с СУБД и 
