@@ -121,7 +121,7 @@ public class PayTest {
         PayPage payPage = new PayPage();
         payPage.invalidBoundary();
     }
-    //5.3
+    //5.3 failed
     @Test
     void invalidBoundaryMonthPayLess() {
         Card card = new Card(approveNumber(), "00", yearPlusFive(), name(), codeCVC());

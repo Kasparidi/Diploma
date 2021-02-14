@@ -6,18 +6,20 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.*;
 
+import static java.lang.System.getProperty;
+
 public class SqlHelper {
 
-    private static String getUrl(){
-        return System.getProperty("db.url");
+    private static String getUrl() {
+        return getProperty("db.url");
     }
 
     private static String getUser() {
-        return System.getProperty("db.user");
+        return getProperty("login");
     }
 
     private static String getPassword(){
-        return System.getProperty("db.password");
+        return getProperty("password");
     }
 
     public static String getStatusPay() throws SQLException {
@@ -45,12 +47,12 @@ public class SqlHelper {
     }
 
     private static String getStatus(String query) throws SQLException {
-        String data = "";
+        String data;
         val runner = new QueryRunner();
         try (
                 val conn = DriverManager.getConnection(
                         getUrl(), getUser(), getPassword()
-                );
+                )
         ) {
             data = runner.query(conn, query, new ScalarHandler<>());
         }
