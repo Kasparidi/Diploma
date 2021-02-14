@@ -22,12 +22,12 @@ import static ru.netology.data.DataGenerator.*;
 public class PayCreditTest {
     @BeforeAll
     static void setUpAll() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(false));
     }
 
     @AfterAll
     static void tearDownAll() {
-        SelenideLogger.removeListener("allure");
+        SelenideLogger.removeListener("AllureSelenide");
     }
 
     @BeforeEach

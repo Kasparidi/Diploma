@@ -18,7 +18,8 @@ API Банка.
 1. Склонировать репозиторий: ``git clone https://github.com/Kasparidi/Diploma``
 1. Запустить контейнеры: ``docker-compose -f docker-compose-ms.yml up -d``
 1. Запустить SUT: ``java -Ddb.url=jdbc:mysql://localhost:3306/app -Dlogin=app -Dpassword=pass -jar artifacts/aqa-shop.jar``
-1. Запустить тесты: ``gradlew test -Ddb.url=jdbc:mysql://localhost:3306/app``
+1. Запустить тесты с отчетом Allure: ``gradlew clean test -Ddb.url=jdbc:mysql://localhost:3306/app allureReport``
+1. Посмотреть отчет Allure в браузере `` gradlew allureServe``
 1. Остановить контейнеры ``docker-compose -f docker-compose-ms.yml down``
 1. Доступно в браузере http://localhost:8080/
 
@@ -27,7 +28,8 @@ API Банка.
 1. Склонировать репозиторий: ``git clone https://github.com/Kasparidi/Diploma``
 1. Запустить docker ``docker-compose -f docker-compose-ps.yml up -d``
 1. Запустить SUT: ``java -Ddb.url=jdbc:postgresql://localhost:5432/app -Dlogin=app -Dpassword=pass -jar artifacts/aqa-shop.jar``
-1. Запустить тесты: ``gradlew test -Ddb.url=jdbc:postgresql://localhost:5432/app``
+1. Запустить тесты с отчетом Allure: ``gradlew clean test -Ddb.url=jdbc:postgresql://localhost:5432/app allureReport``
+1. Посмотреть отчет Allure в браузере `` gradlew allureServe``   
 1. Остановить контейнеры ``docker-compose -f docker-compose-ps.yml down``   
 1. Доступно в браузере http://localhost:8080/
 
