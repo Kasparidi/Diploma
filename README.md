@@ -2,6 +2,7 @@
 
 ### DOCUMENTATION
 [План автоматизации тестирования](https://github.com/Kasparidi/Diploma/blob/master/documentation/Plan.md)
+[Отчет по итогам тестирования](https://github.com/Kasparidi/Diploma/blob/master/documentation/report.md)
 ### DESCRIPTION
 Дипломный проект представляет собой автоматизацию тестирования комплексного сервиса, взаимодействующего с СУБД и 
 API Банка.
@@ -27,7 +28,7 @@ API Банка.
 1. Открыть Intellij IDEA
 1. Склонировать репозиторий: ``git clone https://github.com/Kasparidi/Diploma``
 1. Запустить docker ``docker-compose -f docker-compose-ps.yml up -d``
-1. Запустить SUT: ``java -Ddb.url=jdbc:postgresql://localhost:5432/app -Dlogin=app -Dpassword=pass -jar artifacts/aqa-shop.jar``
+1. Запустить SUT: ``java -Dspring.datasource.url=jdbc:postgresql://localhost:5432/app -Dlogin-app -Dpassword=pass -jar artifacts/aqa-shop.jar``
 1. Запустить тесты с отчетом Allure: ``gradlew clean test -Ddb.url=jdbc:postgresql://localhost:5432/app allureReport``
 1. Посмотреть отчет Allure в браузере `` gradlew allureServe``   
 1. Остановить контейнеры ``docker-compose -f docker-compose-ps.yml down``   
