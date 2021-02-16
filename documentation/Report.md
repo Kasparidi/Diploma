@@ -8,7 +8,7 @@
 * Успешные: 20
 * Неуспешные: 24
 
-![img.png](../src/test/java/ru/netology/web/img.png)
+![img.png](../documentation/images/img.png)
   
 ### Общие рекомендации
 * Реализовать появление сообщения об ошибку при оплате невалидной картой.
